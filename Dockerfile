@@ -7,7 +7,7 @@ COPY package.json ./
 COPY package-lock.json ./
 
 RUN npm i -g yarn --force
-RUN yarn
+# RUN yarn
 
 # Builder layer
 FROM node:16-alpine AS builder
@@ -16,7 +16,7 @@ WORKDIR /home/app
 COPY --from=dependencies /home/app/node_modules ./node_modules
 COPY . .
 
-RUN yarn build
+RUN npm run build
 
 # Runner layer
 FROM node:16-alpine AS runner
